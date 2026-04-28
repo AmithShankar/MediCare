@@ -1,0 +1,24 @@
+{
+  "name": "@medicare-pro/utils",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "firebase": "^10.12.3",
+    "tailwind-merge": "^2.4.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11",
+    "typescript": "^5.5.3"
+  }
+}

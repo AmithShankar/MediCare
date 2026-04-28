@@ -1,0 +1,22 @@
+{
+  "name": "@medicare-pro/hooks",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@medicare-pro/store": "workspace:*",
+    "@medicare-pro/types": "workspace:*",
+    "@medicare-pro/utils": "workspace:*",
+    "firebase": "^10.11.1",
+    "next": "14.2.35",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11",
+    "@types/react": "^18.3.2",
+    "typescript": "^5.4.3"
+  }
+}
