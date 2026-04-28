@@ -43,13 +43,27 @@ const NOTIF_STYLES: Record<NotifType, { icon: string, dot: string }> = {
 export function NotificationsClient() {
   const [notifications, setNotifications] = useState(DEMO_NOTIFICATIONS)
   const [filter, setFilter] = useState<'all' | 'unread'>('all')
-  const { notifyCriticalAlert } = useNotifications()
+  const { requestPermission, notifyCriticalAlert } = useNotifications()
   const addToast = useUIStore((s) => s.addToast)
   const setHeader = useUIStore((s) => s.setHeader)
 
   useEffect(() => {
     setHeader('Notifications', 'Monitor real-time system alerts and clinical updates')
   }, [setHeader])
+
+  // Fire 1 push notification when visiting this page if there are unread critical alerts
+  useEffect(() => {
+    const unread = DEMO_NOTIFICATIONS.filter((n) => !n.read && n.type === 'critical')
+    if (unread.length === 0) return
+    requestPermission().then((granted) => {
+      if (!granted) return
+      notifyCriticalAlert(
+        `${unread.length} unread critical alert${unread.length > 1 ? 's' : ''}`,
+        unread[0].message
+      )
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const filtered = filter === 'unread' ? notifications.filter(n => !n.read) : notifications
   const unreadCount = notifications.filter((n) => !n.read).length

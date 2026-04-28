@@ -4,25 +4,11 @@ import Link from 'next/link'
 import { AlertCircle, ArrowRight, ChevronRight } from 'lucide-react'
 import { StatusBadge, Avatar } from '@medicare-pro/ui'
 import { usePatientStore } from '@medicare-pro/store'
-import { useEffect, useRef } from 'react'
-import { useNotifications } from '@medicare-pro/hooks'
 
 export function CriticalAlerts() {
-  const { notifyCriticalAlert } = useNotifications()
-  const notifiedRef = useRef<Set<string>>(new Set())
-
   const critical = usePatientStore((s) =>
     s.patients.filter((p) => p.status === 'critical').slice(0, 5)
   )
-
-  useEffect(() => {
-    critical.forEach(p => {
-      if (!notifiedRef.current.has(p.id)) {
-        notifyCriticalAlert(p.fullName, `Critical Alert: ${p.vitals.heartRate} BPM / ${p.vitals.oxygenSaturation}% SpO2`)
-        notifiedRef.current.add(p.id)
-      }
-    })
-  }, [critical, notifyCriticalAlert])
 
   return (
     <div className="premium-card h-full flex flex-col">
