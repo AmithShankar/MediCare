@@ -9,7 +9,14 @@ const nextConfig = {
       { protocol: 'https', hostname: 'firebasestorage.googleapis.com' },
     ],
   },
-  transpilePackages: ['framer-motion', 'next-themes'],
+  transpilePackages: [
+    'framer-motion',
+    'next-themes',
+    '@medicare-pro/ui',
+    '@medicare-pro/utils',
+    '@medicare-pro/store',
+    '@medicare-pro/hooks'
+  ],
   async headers() {
     return [
       {

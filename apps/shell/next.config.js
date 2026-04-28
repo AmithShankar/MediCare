@@ -14,7 +14,15 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
-  transpilePackages: ['recharts', 'framer-motion', 'next-themes'],
+  transpilePackages: [
+    'recharts',
+    'framer-motion',
+    'next-themes',
+    '@medicare-pro/ui',
+    '@medicare-pro/utils',
+    '@medicare-pro/store',
+    '@medicare-pro/hooks'
+  ],
   async rewrites() {
     return [
       {
