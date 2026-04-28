@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Outfit } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
-import '@medicare-pro/ui/styles/globals.css'
+import '@medicare-pro/ui/globals.css'
 import { ClientLayout } from './ClientLayout'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })

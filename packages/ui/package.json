@@ -9,7 +9,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./styles/globals.css": "./src/styles/globals.css"
+    "./globals.css": "./src/styles/globals.css"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
