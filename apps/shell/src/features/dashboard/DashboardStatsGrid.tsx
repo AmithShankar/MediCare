@@ -8,8 +8,9 @@ import { MOCK_DASHBOARD_STATS } from '@medicare-pro/utils'
 
 export function DashboardStatsGrid() {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
       <StatCard
+        index={0}
         title="Total Patients"
         value={MOCK_DASHBOARD_STATS.totalPatients}
         icon={Users}
@@ -19,6 +20,7 @@ export function DashboardStatsGrid() {
         trendValue="4.5%"
       />
       <StatCard
+        index={1}
         title="Critical Alerts"
         value={MOCK_DASHBOARD_STATS.criticalAlerts}
         icon={AlertTriangle}
@@ -27,6 +29,7 @@ export function DashboardStatsGrid() {
         subtitle="Requires attention"
       />
       <StatCard
+        index={2}
         title="Admissions Today"
         value={MOCK_DASHBOARD_STATS.admissionsToday}
         icon={UserPlus}
@@ -36,6 +39,7 @@ export function DashboardStatsGrid() {
         trendValue="2 vs yesterday"
       />
       <StatCard
+        index={3}
         title="Discharges (Week)"
         value={MOCK_DASHBOARD_STATS.dischargesThisWeek}
         icon={UserCheck}
@@ -43,6 +47,7 @@ export function DashboardStatsGrid() {
         iconBg="bg-violet-500/10"
       />
       <StatCard
+        index={4}
         title="Bed Occupancy"
         value={MOCK_DASHBOARD_STATS.averageOccupancy}
         suffix="%"
@@ -53,6 +58,7 @@ export function DashboardStatsGrid() {
         trendValue="3% vs last week"
       />
       <StatCard
+        index={5}
         title="Pending Labs"
         value={MOCK_DASHBOARD_STATS.pendingLabResults}
         icon={FlaskConical}

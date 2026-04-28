@@ -17,30 +17,29 @@ export function DashboardClient() {
     requestPermission()
   }, [setHeader, requestPermission])
 
-  const triggerTestAlert = () => {
-    notifyCriticalAlert('Sarah Mitchell', 'SpO2 levels dropped below 90%')
-  }
-
   return (
-    <div className="p-4 lg:p-6 space-y-6 animate-page-enter">
-      <div className="flex items-center justify-between">
-        <div />
-        <button 
-          onClick={triggerTestAlert}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-sm border border-primary/20"
+    <div className="p-3 sm:p-4 lg:p-6 space-y-4 sm:space-y-5 animate-page-enter">
+      {/* Test button — right-aligned on all screens */}
+      <div className="flex justify-end">
+        <button
+          onClick={() => notifyCriticalAlert('Sarah Mitchell', 'SpO2 levels dropped below 90%')}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all border border-primary/20"
         >
           <BellRing className="h-3 w-3" />
-          Test Vital Notification
+          <span className="hidden xs:inline">Test Vital Notification</span>
+          <span className="xs:hidden">Test Alert</span>
         </button>
       </div>
 
+      {/* Stats */}
       <DashboardStatsGrid />
 
-      <div className="grid grid-cols-1 xl:grid-cols-5 gap-5">
-        <div className="xl:col-span-3">
+      {/* Bottom section: stacks on mobile/tablet, side-by-side on xl */}
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-4 sm:gap-5">
+        <div className="xl:col-span-3 min-h-0">
           <RecentAdmissions />
         </div>
-        <div className="xl:col-span-2">
+        <div className="xl:col-span-2 min-h-0">
           <CriticalAlerts />
         </div>
       </div>

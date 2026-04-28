@@ -1,6 +1,4 @@
 const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL || 'http://localhost:3003';
-const PATIENTS_URL = process.env.NEXT_PUBLIC_PATIENTS_URL || 'http://localhost:3001';
-const ANALYTICS_URL = process.env.NEXT_PUBLIC_ANALYTICS_URL || 'http://localhost:3002';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -26,20 +24,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/patients/:path*',
-        destination: `${PATIENTS_URL}/patients/:path*`,
-      },
-      {
-        source: '/analytics/:path*',
-        destination: `${ANALYTICS_URL}/analytics/:path*`,
-      },
-      {
         source: '/auth/:path*',
         destination: `${AUTH_URL}/auth/:path*`,
-      },
-      {
-        source: '/login',
-        destination: `${AUTH_URL}/auth/login`,
       },
     ]
   },
