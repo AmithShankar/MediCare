@@ -8,7 +8,6 @@ const PROTECTED = [
   "/notifications",
   "/settings",
 ];
-const AUTH_ONLY = ["/login"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -21,15 +20,16 @@ export function middleware(request: NextRequest) {
   const isProtected = PROTECTED.some(
     (r) => pathname === r || pathname.startsWith(`${r}/`),
   );
-  const isAuthRoute = AUTH_ONLY.includes(pathname);
 
+  // No session + protected route → login (auth app lives at /auth/*)
   if (!session && isProtected) {
-    const loginUrl = new URL("/login", request.url);
+    const loginUrl = new URL("/auth/login", request.url);
     loginUrl.searchParams.set("next", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  if (session && isAuthRoute) {
+  // Has session + on auth pages → skip back to dashboard
+  if (session && pathname.startsWith("/auth/")) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 

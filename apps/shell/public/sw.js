@@ -1,7 +1,6 @@
-const CACHE_NAME = 'medicare-pro-v2'
+const CACHE_NAME = 'medicare-pro-v3'
+// Only cache true static assets — never app routes that redirect
 const STATIC_ASSETS = [
-  '/',
-  '/dashboard',
   '/manifest.json',
   '/favicon.svg',
 ]
@@ -28,6 +27,10 @@ self.addEventListener('fetch', (event) => {
 
   if (request.method !== 'GET' || url.origin !== location.origin) return
 
+  // Let navigation requests (page loads) go straight to the network so
+  // middleware redirects are followed correctly by the browser
+  if (request.mode === 'navigate') return
+
   if (url.pathname.startsWith('/_next/') || url.pathname.startsWith('/api/')) {
     event.respondWith(
       fetch(request).catch(() => caches.match(request))
@@ -35,6 +38,7 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
+  // Cache-first for true static assets (manifest, icons)
   event.respondWith(
     caches.match(request).then((cached) => cached ?? fetch(request))
   )
