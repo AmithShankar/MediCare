@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, BarChart3, Bell, Settings, LogOut,
@@ -40,17 +41,6 @@ export function Sidebar() {
   const unreadCount = useNotificationStore((s) => s.unreadCount)
   const patientCount = usePatientStore((s) => s.patients.length)
 
-  function isActive(href: string) {
-    const isDashboardRoot = href === '/dashboard' && (pathname === '/dashboard' || pathname === '/')
-    const matchesPath = pathname === href || (href !== '/' && pathname.startsWith(`${href}/`))
-    
-    // Check if we are in a micro-frontend where pathname might be relative to basePath
-    const isAnalytics = href === '/analytics' && (pathname === '/analytics' || (typeof window !== 'undefined' && window.location.pathname.startsWith('/analytics')))
-    const isPatients = href === '/patients' && (pathname === '/patients' || (typeof window !== 'undefined' && window.location.pathname.startsWith('/patients')))
-    
-    return isDashboardRoot || matchesPath || isAnalytics || isPatients
-  }
-
   return (
     <>
       {sidebarOpen && (
@@ -68,7 +58,7 @@ export function Sidebar() {
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       )}>
         <div className="flex items-center justify-between h-16 px-6 shrink-0">
-          <a href="/dashboard" className="flex items-center gap-3 group">
+          <Link href="/dashboard" className="flex items-center gap-3 group">
             <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">
               <Heart className="h-5 w-5 text-white fill-white/20" />
             </div>
@@ -76,7 +66,7 @@ export function Sidebar() {
               <span className="text-sm font-bold text-white tracking-tight leading-none">MediCare Pro</span>
               <span className="text-[10px] font-medium text-slate-500 uppercase tracking-widest mt-1">Intelligence</span>
             </div>
-          </a>
+          </Link>
           <button
             onClick={() => setSidebarOpen(false)}
             className="lg:hidden flex h-8 w-8 items-center justify-center rounded-xl text-slate-500 hover:text-white hover:bg-white/10 transition-colors"
@@ -104,15 +94,13 @@ export function Sidebar() {
                       ? patientCount
                       : null
 
-                  const browserPath = typeof window !== 'undefined' ? window.location.pathname : pathname
-                  
                   const isActive = href === '/dashboard'
-                    ? (browserPath === '/dashboard' || browserPath === '/')
-                    : (browserPath === href || browserPath.startsWith(`${href}/`))
+                    ? (pathname === '/dashboard' || pathname === '/')
+                    : (pathname === href || pathname.startsWith(`${href}/`))
 
                   return (
                     <li key={href}>
-                      <a
+                      <Link
                         href={href}
                         onClick={() => setSidebarOpen(false)}
                         className={cn(
@@ -138,7 +126,7 @@ export function Sidebar() {
                             {badge > 99 ? '99+' : badge}
                           </span>
                         )}
-                      </a>
+                      </Link>
                     </li>
                   )
                 })}

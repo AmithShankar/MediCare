@@ -24,7 +24,7 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (mounted && isInitialized && !user) {
-      window.location.href = '/login'
+      window.location.href = '/auth/login'
     }
   }, [user, isInitialized, router, mounted])
 

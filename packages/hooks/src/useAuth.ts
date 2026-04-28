@@ -73,6 +73,9 @@ export function useAuth() {
     setLoading(true)
     try {
       await signInWithEmailAndPassword(auth, email, password)
+      // Set cookie before redirect — onAuthStateChanged fires async and would
+      // arrive after the navigation, leaving middleware with no cookie to read
+      setSessionCookie('1')
       window.location.href = '/dashboard'
     } catch (err: unknown) {
       const code = (err as { code?: string }).code ?? ''
@@ -86,6 +89,7 @@ export function useAuth() {
     setLoading(true)
     try {
       await signInWithPopup(auth, googleProvider)
+      setSessionCookie('1')
       window.location.href = '/dashboard'
     } catch (err: unknown) {
       const code = (err as { code?: string }).code ?? ''
@@ -101,7 +105,8 @@ export function useAuth() {
     setLoading(true)
     try {
       await firebaseSignOut(auth)
-      window.location.href = '/login'
+      setSessionCookie('')
+      window.location.href = '/auth/login'
     } catch (err) {
       console.error('Logout error:', err)
       setLoading(false)
