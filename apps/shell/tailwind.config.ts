@@ -108,6 +108,8 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
+        inter: ['var(--font-inter)', 'sans-serif'],
+        outfit: ['var(--font-outfit)', 'sans-serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
       },
