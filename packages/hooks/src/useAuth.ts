@@ -42,12 +42,23 @@ function mapFirebaseError(code: string): string {
   return errors[code] ?? 'An unexpected error occurred. Please try again.'
 }
 
+function setSessionCookie(value: string) {
+  if (typeof document === 'undefined') return
+  if (value) {
+    // 7-day persistent cookie — middleware reads this for server-side routing
+    document.cookie = `__session=${value}; path=/; max-age=604800; SameSite=Strict`
+  } else {
+    document.cookie = '__session=; path=/; max-age=0; SameSite=Strict'
+  }
+}
+
 export function useAuthInit() {
   const { setUser, setInitialized } = useAuthStore()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser: User | null) => {
       setUser(firebaseUser ? toAuthUser(firebaseUser) : null)
+      setSessionCookie(firebaseUser ? '1' : '')
       setInitialized()
     })
     return unsubscribe
