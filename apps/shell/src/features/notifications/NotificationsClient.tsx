@@ -51,12 +51,14 @@ export function NotificationsClient() {
     setHeader('Notifications', 'Monitor real-time system alerts and clinical updates')
   }, [setHeader])
 
-  // Fire 1 push notification when visiting this page if there are unread critical alerts
+  // Fire 1 push notification per session when visiting this page
   useEffect(() => {
+    if (sessionStorage.getItem('notif-page-fired')) return
     const unread = DEMO_NOTIFICATIONS.filter((n) => !n.read && n.type === 'critical')
     if (unread.length === 0) return
     requestPermission().then((granted) => {
       if (!granted) return
+      sessionStorage.setItem('notif-page-fired', '1')
       notifyCriticalAlert(
         `${unread.length} unread critical alert${unread.length > 1 ? 's' : ''}`,
         unread[0].message

@@ -21,6 +21,13 @@ const nextConfig = {
     '@medicare-pro/store',
     '@medicare-pro/hooks'
   ],
+  async redirects() {
+    return [
+      // Browsers and Vercel's bot request favicon.png — serve our SVG instead
+      { source: '/favicon.png', destination: '/favicon.svg', permanent: false },
+      { source: '/favicon.ico', destination: '/favicon.svg', permanent: false },
+    ]
+  },
   async rewrites() {
     return [
       {

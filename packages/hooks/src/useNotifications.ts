@@ -11,7 +11,7 @@ export function useNotifications() {
 
   function notifyCriticalAlert(title: string, body: string) {
     if (typeof window === 'undefined' || !('Notification' in window) || Notification.permission !== 'granted') return
-    new Notification(title, { body })
+    new Notification(title, { body, icon: '/favicon.svg' })
   }
 
   return {
